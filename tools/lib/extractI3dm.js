@@ -2,6 +2,7 @@
 
 var Cesium = require('cesium');
 var bufferToJson = require('./bufferToJson');
+var getMagic = require('./getMagic');
 
 var defined = Cesium.defined;
 var DeveloperError = Cesium.DeveloperError;
@@ -18,7 +19,7 @@ function extractI3dm(buffer) {
     if (!defined(buffer)) {
         throw new DeveloperError('buffer is not defined.');
     }
-    var magic = buffer.toString('utf8', 0, 4);
+    var magic = getMagic(buffer);
     if (magic !== 'i3dm') {
         throw new DeveloperError('Invalid magic, expected "i3dm", got: "' + magic + '".');
     }
